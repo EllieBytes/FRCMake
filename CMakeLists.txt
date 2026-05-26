@@ -6,10 +6,17 @@ project(FRCMake
     HOMEPAGE_URL "https://github.com/EllieBytes/FRCMake"
     LANGUAGES NONE)
 
+
 include(GNUInstallDirs)
 
+if(DEFINED ENV{FRCMAKE_DATAROOT})
+    set(FRCMAKE_DATAROOT "$ENV{FRCMAKE_DATAROOT}")
+else()
+    set(FRCMAKE_DATAROOT "${CMAKE_INSTALL_DATAROOTDIR}")
+endif()
+
 set(FRCMAKE_INSTALL_CMAKEDIR
-    "${CMAKE_INSTALL_DATAROOTDIR}/cmake/FRCMake"
+    "${FRCMAKE_DATAROOT}/cmake/FRCMake"
     CACHE STRING "Install directory for FRCMake modules.")
 
 set(FRCMAKE_MODULE_FILES
@@ -24,7 +31,7 @@ install(
     COMPONENT cmake_modules
 )
 
-include(CmakePackageConfigHelpers)
+include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/FRCMakeConfig.cmake.in"
