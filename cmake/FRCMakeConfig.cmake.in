@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULES_PATH "./.")
+
+foreach(comp ${FRCMake_FIND_COMPONENTS})
+    if(NOT TARGET FRCMake::${comp})
+        set(FRCMake_NOT_FOUND_MESSAGE "FRCMake component ${comp} not found.")
+        set(FRCMake_FOUND FALSE)
+    endif()
+endforeach()
